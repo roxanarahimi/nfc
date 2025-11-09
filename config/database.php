@@ -108,7 +108,7 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
-            'encrypt' => 'yes', // or 'no' if you want to disable SSL completely
+            'encrypt' => 'no', // or 'no' if you want to disable SSL completely
             'TrustServerCertificate' => env('DB_TRUST_CERT', true),
 
 //            'driver' => 'sqlsrv',
