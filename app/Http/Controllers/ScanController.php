@@ -65,10 +65,18 @@ class ScanController extends Controller
 
     public function test()
     {
-        $dat = Customer::orderByDesc('CustomerID')->take(100)->get();
-        $dat2 = Broker::orderByDesc('BrokerID')->take(100)->get();
 
-        return response([$dat,$dat2],200);
+
+        try {
+            $dat = Customer::orderByDesc('CustomerID')->take(100)->get();
+            $dat2 = Broker::orderByDesc('BrokerID')->take(100)->get();
+
+            return response([$dat,$dat2],200);
+        }catch (\Exception $exception){
+            return $exception;
+        }
+
+
 //        $dat2 = DB::connection('sqlsrv')->table('LGS3.InventoryVoucher')->
 //        select([
 //            "SLS3.Broker.InventoryVoucherID as OrderID", "LGS3.InventoryVoucher.Number as OrderNumber",
