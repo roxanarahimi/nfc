@@ -21,6 +21,7 @@ return new class extends Migration
             $table->longText('address')->nullable();
 
             $table->string('store_id')->nullable();
+            $table->boolean('isLocationSpoofed')->default(0);
 
             $table->timestamps();
         });

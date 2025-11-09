@@ -12,9 +12,9 @@ use Illuminate\Support\Facades\Route;
 //})->where('any', '.*');
 
 Route::apiResource('scan', ScanController::class);
-Route::get('/test', function (){
-    return "I'm Here! :)";
+
+
+Route::controller(ScanController::class)->group(function () {
+    Route::post('/test', 'test');
 });
-
-
 
