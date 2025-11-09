@@ -107,7 +107,9 @@ return [
             'password' => 'Alpa@2024#Alpa1403',
             'charset' => 'utf8',
             'prefix' => '',
-            'prefix_indexes' => true
+            'prefix_indexes' => true,
+            'encrypt' => 'yes', // or 'no' if you want to disable SSL completely
+            'TrustServerCertificate' => env('DB_TRUST_CERT', true),
 
 //            'driver' => 'sqlsrv',
 //            'url' => env('DB_URL'),
@@ -159,7 +161,7 @@ return [
 
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
-            'prefix' => env('REDIS_PREFIX', Str::slug((string) env('APP_NAME', 'laravel')).'-database-'),
+            'prefix' => env('REDIS_PREFIX', Str::slug((string)env('APP_NAME', 'laravel')) . '-database-'),
             'persistent' => env('REDIS_PERSISTENT', false),
         ],
 
