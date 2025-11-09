@@ -9,4 +9,9 @@ class Broker extends Model
     protected $connection = 'sqlsrv';
     protected $table = 'SLS3.Broker';
     protected $hidden = ['Version'];
+
+    public function Party()
+    {
+        return $this->hasOne(Party::class,  'PartyID','PartyRef');
+    }
 }
