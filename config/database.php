@@ -100,9 +100,9 @@ return [
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',
-            'host' => '92.61.183.36',
+            'host' => '193.106.190.72',
             'port' => '1433',
-            'database' => 'Rahkaran_Alpa',
+            'database' => 'Copa',
             'username' => 'IT',
             'password' => 'Alpa@2024#Alpa1403',
             'charset' => 'utf8',
