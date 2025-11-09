@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Broker;
+use App\Models\Customer;
 use App\Models\Scan;
 use Illuminate\Http\Request;
 
