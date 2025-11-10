@@ -16,8 +16,8 @@ class ScanController extends Controller
     {
         try {
             $scans = Scan::all();
-            return response($scans,200);
-        }catch (\Exception $exception){
+            return response($scans, 200);
+        } catch (\Exception $exception) {
             return $exception;
         }
     }
@@ -27,8 +27,8 @@ class ScanController extends Controller
     {
         try {
             $scan = Scan::create($request->all());
-            return response($scan,201);
-        }catch (\Exception $exception){
+            return response($scan, 201);
+        } catch (\Exception $exception) {
             return $exception;
         }
     }
@@ -37,8 +37,8 @@ class ScanController extends Controller
     {
         try {
             $scan = Scan::findOrFail($scan);
-            return response($scan,200);
-        }catch (\Exception $exception){
+            return response($scan, 200);
+        } catch (\Exception $exception) {
             return $exception;
         }
     }
@@ -48,8 +48,8 @@ class ScanController extends Controller
         try {
             $scan = Scan::find($scan);
             $scan->update($request->all());
-            return response($scan,200);
-        }catch (\Exception $exception){
+            return response($scan, 200);
+        } catch (\Exception $exception) {
             return $exception;
         }
     }
@@ -59,8 +59,8 @@ class ScanController extends Controller
         try {
             $scan = Scan::find($scan);
             $scan->delete();
-            return response('scan deleted successfully',200);
-        }catch (\Exception $exception){
+            return response('scan deleted successfully', 200);
+        } catch (\Exception $exception) {
             return $exception;
         }
     }
@@ -70,13 +70,15 @@ class ScanController extends Controller
 
 
         try {
-//            $dat = Customer::with('Party')->with('CustomerAddress',function ($q){ $q->with('Address');})->orderByDesc('CustomerID')->take(100)->get();
-//            $dat2 = Broker::with('Party')->orderByDesc('BrokerID')->take(100)->get();
-            $dat2 = Address::orderByDesc('AddressID')->take(100)->get();
+            $dat = Customer::with('Party')->with('CustomerAddress', function ($q) {
+              return $q->with('Address');
+            })->orderByDesc('CustomerID')->take(100)->get();
+            $dat2 = Broker::with('Party')->orderByDesc('BrokerID')->take(100)->get();
+//            $dat2 = Address::orderByDesc('AddressID')->take(100)->get();
 
-            return response([$dat2],200);
-            return response([$dat,$dat2],200);
-        }catch (\Exception $exception){
+//            return response([$dat2],200);
+            return response([$dat, $dat2], 200);
+        } catch (\Exception $exception) {
             return $exception;
         }
 
