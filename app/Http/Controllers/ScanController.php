@@ -72,8 +72,8 @@ class ScanController extends Controller
         try {
             $dat = Customer::with('Party')->with('CustomerAddress', function ($q) {
               return $q->with('Address');
-            })->orderByDesc('CustomerID')->take(100)->get();
-            $dat2 = Broker::with('Party')->orderByDesc('BrokerID')->take(100)->get();
+            })->orderByDesc('CustomerID')->take(1)->get();
+            $dat2 = Broker::with('Party')->orderByDesc('BrokerID')->take(1)->get();
 //            $dat2 = Address::orderByDesc('AddressID')->take(100)->get();
 
 //            return response([$dat2],200);
