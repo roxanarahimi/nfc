@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\BrokerResource;
+use App\Http\Resources\CustomerResource;
 use App\Models\Address;
 use App\Models\Broker;
 use App\Models\Customer;
@@ -72,12 +74,10 @@ class ScanController extends Controller
         try {
             $dat = Customer::with('Party')->with('CustomerAddress', function ($q) {
               return $q->with('Address');
-            })->orderByDesc('CustomerID')->take(1)->get();
-            $dat2 = Broker::with('Party')->orderByDesc('BrokerID')->take(1)->get();
-//            $dat2 = Address::orderByDesc('AddressID')->take(100)->get();
+            })->orderByDesc('CustomerID')->first();
+            $dat2 = Broker::with('Party')->orderByDesc('BrokerID')->first();
 
-//            return response([$dat2],200);
-            return response([$dat, $dat2], 200);
+            return response([new CustomerResource($dat), new BrokerResource($dat2)], 200);
         } catch (\Exception $exception) {
             return $exception;
         }
