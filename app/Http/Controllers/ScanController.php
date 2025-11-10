@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Broker;
 use App\Models\Customer;
+use App\Models\CustomerAddress;
 use App\Models\Scan;
 use Illuminate\Http\Request;
 
@@ -69,7 +70,8 @@ class ScanController extends Controller
 
         try {
 //            $dat = Customer::with('Party')->with('CustomerAddress',function ($q){ $q->with('Address');})->orderByDesc('CustomerID')->take(100)->get();
-            $dat2 = Broker::with('Party')->orderByDesc('BrokerID')->take(100)->get();
+//            $dat2 = Broker::with('Party')->orderByDesc('BrokerID')->take(100)->get();
+            $dat2 = CustomerAddress::orderByDesc('CustomerAddressID')->take(100)->get();
 
             return response([$dat2],200);
             return response([$dat,$dat2],200);
