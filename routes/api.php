@@ -15,6 +15,6 @@ Route::apiResource('scan', ScanController::class);
 
 
 Route::controller(ScanController::class)->group(function () {
-    Route::get('/test', 'test');
+    Route::get('/broker', 'test');
 });
 
