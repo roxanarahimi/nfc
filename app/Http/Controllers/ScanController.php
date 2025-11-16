@@ -72,12 +72,12 @@ class ScanController extends Controller
 
 
         try {
-            $dat = Customer::with('Party')->with('CustomerAddress', function ($q) {
-              return $q->with('Address');
-            })->orderByDesc('CustomerID')->first();
-            $dat2 = Broker::with('Party')->orderByDesc('BrokerID')->first();
+//            $dat = Customer::with('Party')->with('CustomerAddress', function ($q) {
+//              return $q->with('Address');
+//            })->orderByDesc('CustomerID')->first();
+            $dat2 = Broker::where('mobile','!=','')->with('Party')->orderByDesc('BrokerID')->take(100)->get();
 
-            return response([new CustomerResource($dat), new BrokerResource($dat2)], 200);
+            return response($dat2, 200);
         } catch (\Exception $exception) {
             return $exception;
         }
