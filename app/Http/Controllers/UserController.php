@@ -20,7 +20,7 @@ class UserController extends Controller
         try {
             $mobile = $request['mobile'];
             $user = User::where('mobile', $mobile)->first();
-            return $user;
+//            return $user;
 //            $user = Broker::whereHas('State','2')->whereHas('Party', function ($q) use ($mobile) {
 //                $q->where('Mobile',$mobile);
 //            })->first();
