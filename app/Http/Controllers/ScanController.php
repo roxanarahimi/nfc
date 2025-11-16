@@ -77,6 +77,7 @@ class ScanController extends Controller
 //            })->orderByDesc('CustomerID')->first();
             $dat2 = Broker::with('Party')->orderByDesc('BrokerID')->take(100)->get();
 
+            return response(new $dat2, 200);
             return response(new BrokerResource($dat2), 200);
         } catch (\Exception $exception) {
             return $exception;
