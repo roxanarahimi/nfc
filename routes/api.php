@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 Route::apiResource('scan', ScanController::class);
 
 Route::controller(UserController::class)->group(function () {
+    Route::post('/user/otp', 'sendOtp');
+    Route::post('/user/verify', 'verifyMobile');
+
     Route::get('/broker', 'brokers');
     Route::get('/broker/{id}', 'broker');
     Route::get('/customer', 'customers');
