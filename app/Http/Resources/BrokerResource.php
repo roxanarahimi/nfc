@@ -19,8 +19,12 @@ class BrokerResource extends JsonResource
             "Number"=>$this->Number,
             "FirstName"=>$this->Party->FirstName,
             "LastName"=>$this->Party->LastName,
-            "FatherName"=>$this->Party->FatherName,
             "Mobile"=>$this->Party->Mobile,
+            "NationalID"=>$this->Party->NationalID,
+            "State"=>$this->State,
+            "Type"=>$this->Type,
+            //            "FatherName"=>$this->Party->FatherName,
+
         ];
     }
 }
