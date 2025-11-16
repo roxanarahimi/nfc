@@ -90,7 +90,7 @@ class UserController extends Controller
             $code = Cache::get($mobile);
 
 //            return $code;
-            if ($code == $inputCode) {
+            if ($code === $inputCode) {
                 $user = User::where('mobile', $mobile)->first();
                 if (!$user) {
                     return response(['message' => 'این کاربر وجود ندارد'], 422);
