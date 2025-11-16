@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ScanController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 //Route::options('/{any}', function (Request $request) {
@@ -13,8 +14,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::apiResource('scan', ScanController::class);
 
-
-Route::controller(ScanController::class)->group(function () {
-    Route::get('/broker', 'test');
+Route::controller(UserController::class)->group(function () {
+    Route::get('/broker', 'brokers');
+    Route::get('/broker/{id}', 'broker');
+    Route::get('/customer', 'customers');
+    Route::get('/customer/{id}', 'customer');
 });
 
