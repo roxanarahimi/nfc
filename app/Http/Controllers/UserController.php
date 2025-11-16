@@ -19,10 +19,13 @@ class UserController extends Controller
     {
         try {
             $mobile = $this->faToEn($request['mobile']);
-            $user = User::where('mobile', $mobile)->first();
-            if ($user && $user->role === 'admin') {
-                return response(['message' => 'این شماره موبایل قابل استفاده نیست. لطفا با شماره دیگری تلاش کنید.'], 422);
-            }
+//            $user = User::where('mobile', $mobile)->first();
+            $user = Broker::whereHas('State','2')->whereHas('Party', function ($q) use ($mobile) {
+                $q->where('Mobile',$mobile);
+            })->first();
+//            if ($user && $user->role === 'admin') {
+//                return response(['message' => 'این شماره موبایل قابل استفاده نیست. لطفا با شماره دیگری تلاش کنید.'], 422);
+//            }
             $code = rand(1001, 9999);
             $text = ' به کوپابی خوش آمدید.کد تایید:' . $code;
             $sms = new Request([
@@ -85,14 +88,19 @@ class UserController extends Controller
             $code = Cache::get($mobile);
 
             if ($code === $inputCode) {
-                $user = User::where('mobile', $mobile)->first();
+//                $user = User::where('mobile', $mobile)->first();
+                $user = Broker::whereHas('State','2')->whereHas('Party', function ($q) use ($mobile) {
+                    $q->where('Mobile',$mobile);
+                })->first();
                 if (!$user) {
-                    $fields = new Request([
-                        'mobile' => $mobile,
-                    ]);
-                    $user = $this->store($fields);
+//                    $fields = new Request([
+//                        'mobile' => $mobile,
+//                    ]);
+//                    $user = $this->store($fields);
+                    return response(['message' => 'این کاربر وجود ندارد'], 422);
                 }
-                return response(['user' => new UserResource($user), 'message' => 'شماره موبایل با موفقیت تایید شد.'], 200);
+                //'user' => new UserResource($user)
+                return response(['user' => $user, 'message' => 'شما با موفقیت وارد شدید.'], 200);
             } else {
                 return response(['message' => 'کد وارد شده اشتباه است.'], 422);
             }
@@ -104,7 +112,7 @@ class UserController extends Controller
     public function brokers()
     {
         try {
-            $dat2 = Broker::with('Party')->orderByDesc('BrokerID')->take(100)->get();
+            $dat2 = Broker::where('State','2')->orderByDesc('BrokerID')->take(100)->get();
             return response( BrokerResource::collection($dat2), 200);
         } catch (\Exception $exception) {
             return $exception;
@@ -115,7 +123,7 @@ class UserController extends Controller
     public function broker($id)
     {
         try {
-            $dat2 = Broker::where('BrokerID',$id)->first();
+            $dat2 = Broker::where('State', 2)->where('BrokerID',$id)->first();
             return response( new BrokerResource($dat2), 200);
         } catch (\Exception $exception) {
             return $exception;
