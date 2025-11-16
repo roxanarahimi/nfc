@@ -89,7 +89,7 @@ class UserController extends Controller
 
             if ($code === $inputCode) {
 //                $user = User::where('mobile', $mobile)->first();
-                $user = Broker::whereHas('State','2')->whereHas('Party', function ($q) use ($mobile) {
+                $user = Broker::where('State','2')->whereHas('Party', function ($q) use ($mobile) {
                     $q->where('Mobile',$mobile);
                 })->first();
                 if (!$user) {
