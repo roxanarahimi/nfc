@@ -28,7 +28,7 @@ class UserController extends Controller
 //                return response(['message' => 'این شماره موبایل قابل استفاده نیست. لطفا با شماره دیگری تلاش کنید.'], 422);
 //            }
             $code = rand(1001, 9999);
-            $text = ' به کوپابی خوش آمدید.کد تایید:' . $code;
+            $text = 'کد تایید ورود به اپلیکیشن:' . $code;
             $sms = new Request([
                 'mobile' => $mobile,
                 'message' => $text,
@@ -36,7 +36,7 @@ class UserController extends Controller
 
             $send = $this->sendSms($sms);
             Cache::put($mobile, $code, 60);
-            if ($send->getStatusCode() === 200) {
+            if ($send->getStatusCode() == 200) {
                 return response(['message' => 'کد تایید ارسال شد.'], 200);
 
             } else {
@@ -88,7 +88,8 @@ class UserController extends Controller
             $inputCode = $request['code'];
             $code = Cache::get($mobile);
 
-            if ($code === $inputCode) {
+            return $code;
+            if ($code == $inputCode) {
                 $user = User::where('mobile', $mobile)->first();
                 if (!$user) {
                     return response(['message' => 'این کاربر وجود ندارد'], 422);
